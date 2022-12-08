@@ -13,18 +13,18 @@ with open("kanji_list/n1c.txt",encoding="utf-8") as kln1:
     n1_kanji = kln1.read()
 
 #initialize the empty variables to be used later
-total_dict = {}
-n5_dict = {}
-n4_dict = {}
-n3_dict = {}
-n2_dict = {}
-n1_dict = {}
+total_dict:dict = {}
+n5_dict:dict = {}
+n4_dict:dict = {}
+n3_dict:dict = {}
+n2_dict:dict = {}
+n1_dict:dict = {}
 
-n5_counter = 0
-n4_counter = 0
-n3_counter = 0
-n2_counter = 0
-n1_counter = 0
+n5_counter:int = 0
+n4_counter:int = 0
+n3_counter:int = 0
+n2_counter:int = 0
+n1_counter:int = 0
 
 
 content = af.open_file()

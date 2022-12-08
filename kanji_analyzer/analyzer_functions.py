@@ -1,19 +1,19 @@
 import collections
 
-def open_file():
+def open_file(entry):
     #check user input for which file to use
-    filename = input("enter the name of the file you wish to assess (or press q to quit): ")
-    if filename.lower() == "q":
+    filename = entry
+    if filename.lower() == "quit":
         raise SystemExit
     try:
         with open(filename,encoding='UTF-8') as file_object:
             contents = file_object.read()
     except FileNotFoundError:
         print("file not found, try again!")
-        return open_file()
+        return open_file(entry)
     except UnicodeDecodeError:
         print("please choose a valid file type")
-        return open_file()
+        return open_file(entry)
     else:
         return contents
 
