@@ -43,11 +43,9 @@ class kanji_analyzer():
             with open(filename,encoding='UTF-8') as file_object:
                 contents = file_object.read()
         except FileNotFoundError:
-            print("file not found, try again!")
-            return self.open_file(entry)
+            return "Please choose an existing file"
         except UnicodeDecodeError:
-            print("please choose a valid file type")
-            return self.open_file(entry)
+            return "Please choose a compatible file type"
         else:
             return self.load_program(contents)
     
@@ -83,3 +81,14 @@ class kanji_analyzer():
         self.common_n2 = cl.Counter.most_common(self.n2_dict)
         self.common_n1 = cl.Counter.most_common(self.n1_dict)
         self.common_all = cl.Counter.most_common(self.total_dict)
+    
+    def display_results(self):
+        total = self.n5_counter + self.n4_counter + self.n3_counter + self.n2_counter + self.n1_counter
+        try:
+            return f"""{self.n5_counter}({int((self.n5_counter/total)*100)}%) N5,
+{self.n4_counter}({int((self.n4_counter/total)*100)}%) N4,
+{self.n3_counter}({int((self.n3_counter/total)*100)}%) N3,
+{self.n2_counter}({int((self.n2_counter/total)*100)}%) N2,
+{self.n1_counter}({int((self.n1_counter/total)*100)}%) N1"""
+        except ZeroDivisionError:
+            return "please choose a file with japanese in it!"
