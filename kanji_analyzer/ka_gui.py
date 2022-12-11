@@ -26,37 +26,21 @@ def get_text(kanji,entry,frame):
     n_button.pack()
     
 def display_level_kanji(kanji,frame,entry):
-
-    class fwd_bk():
-        start = 0
-        end = 100
-        def fwd(self,label):
-            self.start += 100
-            self.end += 100
-            label.configure(text=k_dict[entry.get()][fb.start:fb.end:])
-        def bk(self,label):
-            self.start -= 100
-            self.end -= 100
-            label.configure(text=k_dict[entry.get()][fb.start:fb.end:])
-
-    fb = fwd_bk()
     frame.destroy()
     d_frame = tk.Frame(root)
     dn_frame = tk.Frame(d_frame)
-    kanji.common_kanji()
     k_dict = {"N1":kanji.common_n1,"N2":kanji.common_n2,"N3":kanji.common_n3,"N4":kanji.common_n4,"N5":kanji.common_n5,"All":kanji.common_all}
-    d_lbl = tk.Label(d_frame,text=k_dict[entry.get()][fb.start:fb.end:],wraplength=400)
+    d_lbl = tk.Text(d_frame,bg='gray85',height=12,width=43)
+    d_lbl.insert(tk.INSERT,k_dict[entry.get()])
+    d_lbl.configure(state="disabled",relief=tk.FLAT)
     d_btn = tk.Button(dn_frame,text="choose another file",command=lambda:startup_window(kanji,d_frame))
     d2_btn = tk.Button(dn_frame,text="choose a different level",command=lambda:get_text(kanji,entry,d_frame))
-    dnl_btn = tk.Button(dn_frame,text="<",command=lambda:fb.bk(d_lbl))
-    dnr_btn = tk.Button(dn_frame,text=">",command=lambda:fb.fwd(d_lbl))
     d_frame.pack()
     d_lbl.pack()
     dn_frame.pack()
-    dnl_btn.pack(side=tk.LEFT)
     d_btn.pack(side=tk.LEFT)
     d2_btn.pack(side=tk.LEFT)
-    dnr_btn.pack(side=tk.LEFT)
+
 
 def startup_window(kanji,frame):
     if frame:
@@ -75,6 +59,7 @@ kanji = kac.kanji_analyzer()
 root = tk.Tk()
 root.title("Kanji Analyzer")
 root.geometry("400x300")
+root.option_add('*Font','40')
 empty_frame = tk.Frame(root)
 startup_window(kanji,empty_frame)
 root.mainloop()
