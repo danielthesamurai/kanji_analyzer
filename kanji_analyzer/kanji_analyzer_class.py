@@ -34,6 +34,13 @@ class kanji_analyzer():
     common_n1:list = []
     common_all:list = []
     
+    n5_results = ""
+    n4_results = ""
+    n3_results = ""
+    n2_results = ""
+    n1_results = ""
+    all_results = ""
+    
     def open_file(self,entry):
     #check user input for which file to use
         filename = entry
@@ -81,14 +88,17 @@ class kanji_analyzer():
         self.common_n2 = cl.Counter.most_common(self.n2_dict)
         self.common_n1 = cl.Counter.most_common(self.n1_dict)
         self.common_all = cl.Counter.most_common(self.total_dict)
+        self.display_results()
     
     def display_results(self):
         total = self.n5_counter + self.n4_counter + self.n3_counter + self.n2_counter + self.n1_counter
         try:
-            return f"""{self.n5_counter}({int((self.n5_counter/total)*100)}%) N5,
-{self.n4_counter}({int((self.n4_counter/total)*100)}%) N4,
-{self.n3_counter}({int((self.n3_counter/total)*100)}%) N3,
-{self.n2_counter}({int((self.n2_counter/total)*100)}%) N2,
-{self.n1_counter}({int((self.n1_counter/total)*100)}%) N1"""
+            self.n5_results = f"{self.n5_counter}({int((self.n5_counter/total)*100)}%) N5"
+            self.n4_results = f"{self.n4_counter}({int((self.n4_counter/total)*100)}%) N4"
+            self.n3_results = f"{self.n3_counter}({int((self.n3_counter/total)*100)}%) N3"
+            self.n2_results = f"{self.n2_counter}({int((self.n2_counter/total)*100)}%) N2"
+            self.n1_results = f"{self.n1_counter}({int((self.n1_counter/total)*100)}%) N1"
+            self.all_results = f"{total} overall"
+        
         except ZeroDivisionError:
-            return "please choose a file with japanese in it!"
+            print("please choose a file with japanese in it!")
